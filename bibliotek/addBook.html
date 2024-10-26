@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add or Update Book</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>Add or Update Book</h1>
+    <div id="formContainer">
+        <form id="bookForm">
+            <label for="bookId">Book ID (for updating an existing book):</label>
+            <input type="number" id="bookId" placeholder="Leave blank for new book"><br>
+
+            <label for="title">Title:</label>
+            <input type="text" id="title" required><br>
+
+            <label for="description">Description:</label>
+            <input type="text" id="description" required><br>
+
+            <label for="year">Year:</label>
+            <input type="number" id="year" required><br>
+
+            <label for="authorId">Author ID:</label>
+            <input type="number" id="authorId" required><br>
+
+            <button type="submit" id="submitBook">Submit</button>
+            <button onclick="window.location.href='http://127.0.0.1:5500/'">Go Back</button>
+
+        </form>
+    </div>
+
+    <script src="js/addBook.js"></script>
+</body>
+</html>
