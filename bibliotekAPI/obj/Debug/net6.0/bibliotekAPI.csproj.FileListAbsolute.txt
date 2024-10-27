@@ -63,3 +63,4 @@ C:\bibliotekAPI\bibliotekAPI\obj\Debug\net6.0\bibliotekAPI.genruntimeconfig.cach
 C:\bibliotekAPI\bibliotekAPI\obj\Debug\net6.0\ref\bibliotekAPI.dll
 C:\bibliotekAPI\bibliotekAPI\bin\Debug\net6.0\Humanizer.dll
 C:\bibliotekAPI\bibliotekAPI\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Design.dll
+C:\bibliotekAPI\bibliotekAPI\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.InMemory.dll

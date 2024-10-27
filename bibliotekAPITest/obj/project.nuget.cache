@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "ezRVxrYKRcE=",
+  "dgSpecHash": "G0PgFc5VS7Q=",
   "success": true,
   "projectFilePath": "C:\\bibliotekAPI\\bibliotekAPITest\\bibliotekAPITest.csproj",
   "expectedPackageFiles": [
@@ -12,6 +12,7 @@
     "C:\\Users\\said_\\.nuget\\packages\\microsoft.entityframeworkcore\\6.0.35\\microsoft.entityframeworkcore.6.0.35.nupkg.sha512",
     "C:\\Users\\said_\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\6.0.35\\microsoft.entityframeworkcore.abstractions.6.0.35.nupkg.sha512",
     "C:\\Users\\said_\\.nuget\\packages\\microsoft.entityframeworkcore.analyzers\\6.0.35\\microsoft.entityframeworkcore.analyzers.6.0.35.nupkg.sha512",
+    "C:\\Users\\said_\\.nuget\\packages\\microsoft.entityframeworkcore.inmemory\\6.0.35\\microsoft.entityframeworkcore.inmemory.6.0.35.nupkg.sha512",
     "C:\\Users\\said_\\.nuget\\packages\\microsoft.entityframeworkcore.relational\\6.0.35\\microsoft.entityframeworkcore.relational.6.0.35.nupkg.sha512",
     "C:\\Users\\said_\\.nuget\\packages\\microsoft.entityframeworkcore.sqlite\\6.0.35\\microsoft.entityframeworkcore.sqlite.6.0.35.nupkg.sha512",
     "C:\\Users\\said_\\.nuget\\packages\\microsoft.entityframeworkcore.sqlite.core\\6.0.35\\microsoft.entityframeworkcore.sqlite.core.6.0.35.nupkg.sha512",

@@ -43,11 +43,24 @@ namespace bibliotekAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<Author>> CreateAuthor(Author author)
         {
+            if (author == null || string.IsNullOrWhiteSpace(author.FirstName) || string.IsNullOrWhiteSpace(author.LastName))
+            {
+                return BadRequest(); // Return BadRequest if author is null or invalid
+            }
+
+            // Check for existing authors with the same name
+            if (_context.Authors.Any(a => a.FirstName == author.FirstName && a.LastName == author.LastName))
+            {
+                return Conflict(); // Return Conflict if the author already exists
+            }
+
             _context.Authors.Add(author);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction(nameof(GetAuthor), new { id = author.Id }, author);
         }
+
+
 
         // PUT: api/Author/5
         [HttpPut("{id}")]
