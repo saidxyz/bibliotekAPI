@@ -1,16 +1,14 @@
 $(document).ready(function() {
-    // Get the bookId from the URL if available
     const urlParams = new URLSearchParams(window.location.search);
     const bookId = urlParams.get('bookId');
 
     if (bookId) {
-        // Fetch the book data for editing
         $.ajax({
             url: `https://localhost:7080/api/Book/${bookId}`,
             type: 'GET',
             dataType: 'json',
             success: function(book) {
-                $('#bookId').val(book.id); // Populate bookId (hidden field)
+                $('#bookId').val(book.id);
                 $('#title').val(book.title);
                 $('#description').val(book.description);
                 $('#year').val(book.year);
@@ -18,16 +16,16 @@ $(document).ready(function() {
             },
             error: function(xhr, status, error) {
                 console.error('Error fetching book data:', error);
+                alert('Could not fetch book data for editing.');
             }
         });
     }
 
     $('#bookForm').submit(function(event) {
         event.preventDefault();
-
-        const bookId = $('#bookId').val().trim(); // Empty for new books
+        
+        const bookId = $('#bookId').val().trim();
         const bookData = {
-            id: bookId ? parseInt(bookId) : null,  // Include id for update
             title: $('#title').val(),
             description: $('#description').val(),
             year: parseInt($('#year').val()),
@@ -35,15 +33,16 @@ $(document).ready(function() {
         };
 
         if (bookId) {
-            // Update the existing book
+            bookData.id = parseInt(bookId); // Inkluder id i bookData ved oppdatering
             updateBook(bookId, bookData);
         } else {
-            // Add a new book
             addBook(bookData);
         }
     });
 
     function addBook(bookData) {
+        console.log("Adding book with data:", bookData);
+        
         $.ajax({
             url: 'https://localhost:7080/api/Book',
             type: 'POST',
@@ -51,11 +50,19 @@ $(document).ready(function() {
             data: JSON.stringify(bookData),
             success: function(response) {
                 alert("Book added successfully!");
-                window.location.href = 'index.html'; // Redirect to main page
+                window.location.href = 'index.html';
             },
             error: function(xhr, status, error) {
                 console.error('Error adding book:', error);
-                alert("Failed to add the book.");
+                console.error('Response status:', xhr.status);
+                let errorMessage = 'Failed to add the book.';
+                
+                if (xhr.responseJSON && xhr.responseJSON.errors) {
+                    const errors = xhr.responseJSON.errors;
+                    errorMessage += '\n' + Object.values(errors).flat().join('\n');
+                }
+                
+                alert(errorMessage);
             }
         });
     }
@@ -71,20 +78,18 @@ $(document).ready(function() {
             data: JSON.stringify(bookData),
             success: function(response) {
                 alert("Book updated successfully!");
-                window.location.href = 'index.html'; // Redirect to main page
+                window.location.href = 'index.html';
             },
             error: function(xhr, status, error) {
                 console.error('Error updating book:', error);
                 console.error('Response status:', xhr.status);
+                console.error('Full response:', xhr.responseText);
                 
                 let errorMessage = 'Failed to update the book.';
-                try {
-                    const responseText = JSON.parse(xhr.responseText);
-                    if (responseText && responseText.title) {
-                        errorMessage += ` Error: ${responseText.title}`;
-                    }
-                } catch (e) {
-                    errorMessage += ' Please check the server log for more details.';
+                
+                if (xhr.responseJSON && xhr.responseJSON.errors) {
+                    const errors = xhr.responseJSON.errors;
+                    errorMessage += '\n' + Object.values(errors).flat().join('\n');
                 }
 
                 alert(errorMessage);

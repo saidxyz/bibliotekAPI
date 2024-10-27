@@ -45,9 +45,13 @@ namespace bibliotekAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<Book>> CreateBook([FromBody] Book book)
         {
-            if (book == null || string.IsNullOrEmpty(book.Title) || book.Year <= 0 || book.AuthorId <= 0)
+            if (book == null)
             {
-                return BadRequest("Incomplete book data. Title, Year, and AuthorId are required.");
+                return BadRequest("Book data is required.");
+            }
+            if (string.IsNullOrEmpty(book.Title) || book.AuthorId <= 0)
+            {
+                return BadRequest("Title and AuthorId are required fields.");
             }
 
             _context.Books.Add(book);
@@ -55,6 +59,7 @@ namespace bibliotekAPI.Controllers
 
             return CreatedAtAction(nameof(GetBook), new { id = book.Id }, book);
         }
+
 
 
         // PUT: api/Book/5
@@ -66,24 +71,29 @@ namespace bibliotekAPI.Controllers
                 return BadRequest("Book ID mismatch");
             }
 
+            if (string.IsNullOrEmpty(book.Title) || book.AuthorId <= 0)
+            {
+                return BadRequest("Title and AuthorId are required fields.");
+            }
+
             var existingBook = await _context.Books.FindAsync(id);
             if (existingBook == null)
             {
                 return NotFound("Book not found");
             }
 
-            // Update fields
+            // Oppdater feltene her
             existingBook.Title = book.Title;
             existingBook.Description = book.Description;
             existingBook.Year = book.Year;
             existingBook.AuthorId = book.AuthorId;
 
-            // Save changes
             _context.Entry(existingBook).State = EntityState.Modified;
             await _context.SaveChangesAsync();
 
-            return NoContent(); // Success without content
+            return NoContent();
         }
+
 
 
         [HttpDelete("{id}")]

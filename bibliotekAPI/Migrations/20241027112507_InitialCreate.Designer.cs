@@ -11,7 +11,7 @@ using bibliotekAPI.Models;
 namespace bibliotekAPI.Migrations
 {
     [DbContext(typeof(bibliotekContext))]
-    [Migration("20241026161351_InitialCreate")]
+    [Migration("20241027112507_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
