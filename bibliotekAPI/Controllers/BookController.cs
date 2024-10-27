@@ -45,18 +45,17 @@ namespace bibliotekAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<Book>> CreateBook([FromBody] Book book)
         {
-            if (book == null)
+            if (book == null || string.IsNullOrEmpty(book.Title) || book.Year <= 0 || book.AuthorId <= 0)
             {
-                return BadRequest("Book data is required");
+                return BadRequest("Incomplete book data. Title, Year, and AuthorId are required.");
             }
-
-            Console.WriteLine($"Received Book: {JsonSerializer.Serialize(book)}"); // Logg mottatt data
 
             _context.Books.Add(book);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction(nameof(GetBook), new { id = book.Id }, book);
         }
+
 
         // PUT: api/Book/5
         [HttpPut("{id}")]

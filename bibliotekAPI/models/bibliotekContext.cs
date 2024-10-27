@@ -4,9 +4,7 @@ namespace bibliotekAPI.Models
 {
     public class bibliotekContext : DbContext
     {
-        public bibliotekContext(DbContextOptions<bibliotekContext> options) : base(options)
-        {
-        }
+        public bibliotekContext(DbContextOptions<bibliotekContext> options) : base(options) { }
 
         public DbSet<Book> Books { get; set; }
         public DbSet<Author> Authors { get; set; }

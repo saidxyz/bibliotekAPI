@@ -66,16 +66,18 @@ namespace bibliotekAPI.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateAuthor(int id, Author author)
         {
+            // Check if the provided author ID matches the ID in the object
             if (id != author.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(author).State = EntityState.Modified;
+            // Attach the author to the context and mark it as modified
+            _context.Authors.Update(author);
 
             try
             {
-                await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync(); // Attempt to save changes
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -83,15 +85,13 @@ namespace bibliotekAPI.Controllers
                 {
                     return NotFound();
                 }
-                else
-                {
-                    throw;
-                }
+                throw; // For any other concurrency exceptions, rethrow
             }
 
-            return NoContent();
+            return NoContent(); // Successfully updated
         }
-
+        
+        
         // DELETE: api/Author/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAuthor(int id)
@@ -99,13 +99,17 @@ namespace bibliotekAPI.Controllers
             var author = await _context.Authors.FindAsync(id);
             if (author == null)
             {
-                return NotFound();
+                return NotFound(); // Return NotFound if the author doesn't exist
             }
 
             _context.Authors.Remove(author);
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(); // Save the changes
 
-            return NoContent();
+            return NoContent(); // Return NoContent if deletion is successful
         }
+
+
+
+
     }
 }
